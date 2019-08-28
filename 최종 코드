@@ -1,83 +1,57 @@
 d = list(input('아버지의 혈액형을 입력하세요 Ex) A :  '))
-if len(d) == 2 :
-    d.append('A')
-    d.append('B')
+if d[0] == 'AB' :
+    d = ['A','B']
 elif d[0] == 'O' :
-    d.append('O')
-    d.append('O')
-    d.append('O')
+    d = ['O','O','O','O']
 elif d[0] == 'A' :
     dd = input('친할아버지의 혈액형을 입력하세요 :')
     dm = input('친할머니의 혈액형을 입력하세요 :')
     if dd == 'B' or dd == 'O' or dm == 'B' or dm == 'O' :
-        d.append('O')
-        d.append('A')
-        d.append('O')
+        d = ['A','O','A','O']
     elif dd == 'AB' and dm == 'AB' :
-        d.append('A')
-        d.append('A')
-        d.append('A')
+        d = ['A','A','A','A']
     else:
-        d.append('A')
-        d.append('A')
-        d.append('O')
-else :
+        d = ['A','A','A','O'] # 아버지의 유전자형 결정
+elif d[0] == 'B' :
     dd = input('친할아버지의 혈액형을 입력하세요 :')
     dm = input('친할머니의 혈액형을 입력하세요 :')
     if dd == 'A' or dd == 'O' or dm == 'A' or dm == 'O' :
-        d.append('O')
-        d.append('B')
-        d.append('O')
+        d = ['B','O','B','O']
     elif dd == 'AB' and dm == 'AB' :
-        d.append('B')
-        d.append('B')
-        d.append('B')
+        d = ['B','B','B','B']
     else :
-        d.append('B')
-        d.append('B')
-        d.append('O')
-
+        d = ['B','B','B','O']
+else :
+    d = list(input('아버지의 혈액형을 다시 입력하세요 Ex) A :  ')) # O,A,B,AB가 아닐 시 재입력 받음
 m = list(input('어머니의 혈액형을 입력하세요 Ex) A :  '))
-if len(m) == 2 :
-    m.append('A')
-    m.append('B')
+if m[0] == 'AB' :
+    m = ['A','B']
 elif m[0] == 'O' :
-    m.append('O')
-    m.append('O')
-    m.append('O')
+    d = ['O','O','O','O']
 elif m[0] == 'A' :
     md = input('외할아버지의 혈액형을 입력하세요 :')
     mm = input('외할머니의 혈액형을 입력하세요 :')
     if md == 'B' or md == 'O' or mm == 'B' or mm == 'O' :
-        m.append('O')
-        m.append('A')
-        m.append('O')
+        d = ['A','O','A','O']
     elif md == 'AB' and mm == 'AB' :
-        m.append('A')
-        m.append('A')
-        m.append('A')
+        d = ['A','A','A','A']
     else:
-        m.append('A')
-        m.append('A')
-        m.append('O')
-else :
+        d = ['A','A','A','O']
+elif m[0] == 'B' :
     md = input('외할아버지의 혈액형을 입력하세요 :')
     mm = input('외할머니의 혈액형을 입력하세요 :')
     if md == 'A' or md == 'O' or mm == 'A' or mm == 'O' :
-        m.append('O')
-        m.append('B')
-        m.append('O')
+        d = ['B','O','B','O']
     elif md == 'AB' and mm == 'AB' :
-        m.append('B')
-        m.append('B')
-        m.append('B')
+        d = ['B','B','B','B']
     else :
-        m.append('B')
-        m.append('B')
-        m.append('O')
+        d = ['B','B','B','O'] # 어머니의 유전자형 결정
+else :
+    m = list(input('어머니의 혈액형을 다시 입력하세요 Ex) A :  ')) # O,A,B,AB가 아닐 시 재입력 받음
+    
 son = [d[0]+m[0], d[0]+m[1], d[0]+m[2], d[0]+m[3], d[1]+m[0], d[1]+m[1], 
        d[1]+m[2], d[1]+m[3], d[2]+m[0], d[2]+m[1], d[2]+m[2], d[2]+m[3], 
-       d[3]+m[0], d[3]+m[1], d[3]+m[2], d[3]+m[3]]
+       d[3]+m[0], d[3]+m[1], d[3]+m[2], d[3]+m[3]] #어머니, 아버지 유전자형 토대로 자식 유전자 결정
 
 
 for i in range(0,16) :
@@ -100,26 +74,12 @@ print(pro)
 import matplotlib.pyplot as plt
 plt.figure(figsize=(3,2), dpi=300)
 
-#value값이 0인 key들 제거
-delkey=[]
-for i in pro:
-    if pro[i]==0.0:
-        delkey.append(i)
-for i in delkey:
-    del pro[i]
-        
-#pro에서 size와 labels 제작
-labels = list(pro.keys())
-size = list(pro.values())
-
-#수에 맞는 색을 팔레트에서 추출
-palette = ['hotpink', 'red', 'blueviolet', 'blue','lightskyblue','lightgray']
-colors = []
-for i in pro:
-    colors.append(palette.pop())
+size = [cAO, cAA, cAB, cBB, cBO, cOO]  
+labels = 'AO', 'AA', 'AB', 'BB','BO','OO'
+colors = ['hotpink', 'red', 'blueviolet', 'blue','lightskyblue','lightgray']
 
 plt.title('blood type')
 plt.pie(size, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
 
 plt.axis('equal')
-plt.show()
+plt.show() # 각 혈액형별 확률을 그래프로 표시
